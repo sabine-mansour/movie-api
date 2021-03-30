@@ -16,7 +16,7 @@ console.log('Added to log.')
 });
 
 if (q.pathname.includes('documentation')){
-filePath = (__dirname + '/documentation');
+filePath = (__dirname + '/documentation.html');
 } else {
 filePath = 'index.html';
 }
@@ -32,3 +32,5 @@ response.end();
 });
 
 }).listen(8080);
+
+console.log('My first Node test server is running on Port 8080.');
