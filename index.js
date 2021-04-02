@@ -1,5 +1,5 @@
 const express = require('express'),
-  morgan = require('morgan');
+morgan = require('morgan');
 
 const app = express();
 
@@ -49,7 +49,6 @@ app.use((err, req, res, next) => {
 
 
 //GET requests
-
 app.get('/', (req, res) => {
   res.send('Welcome to MoviesInfo!')
 });
