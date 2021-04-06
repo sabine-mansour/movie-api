@@ -43,7 +43,7 @@ app.use(morgan('common'));
 app.use(express.static('public'));
 
 app.use((err, req, res, next) => {
-  console.err(error.stack);
+  console.err(err.stack);
   res.status(500).send('Error!');
 });
 
