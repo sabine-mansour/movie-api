@@ -5,15 +5,120 @@
     <meta charset="utf-8">
     <title>MoviesInfo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 5px;
+}
+</style>
   </head>
 
   <body>
-    MoviesInfo
+    MoviesInfo <br><br>
 
     The web application will provide users with access to information about different
     movies, directors, and genres. Users will be able to sign up, update their
     personal information, and create a list of their favorite movies.
+    <br> <br>
+
+    <table>
+  <tr>
+    <th>Request</th>
+    <th>URL</th>
+    <th>HTTP Method</th>
+    <th>URL parameters</th>
+    <th>Request body data format</th>
+    <th>Respond body data format</th>
+  </tr>
+  <tr>
+    <td>Get a list of ALL movies</td>
+    <td>/movies</td>
+    <td>GET</td>
+    <td></td>
+    <td>None</td>
+    <td>A JSON object holding data about all movies</td>
+  </tr>
+  <tr>
+    <td>Get data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title</td>
+    <td>/movies/[Title]</td>
+    <td>GET</td>
+    <td>/movies/:title</td>
+    <td>None</td>
+    <td>A JSON object holding data about a single movie containing a title, description, genre, director, image and featured. <br><br>
+    Example: <br>
+    {
+    "title": "Black Panther",
+    "description": "Black Panther is a 2018 American superhero film based on the Marvel Comics character of the same name.",
+    "director": "Ryan Koogler",
+    "genre":"Adventure",
+    "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQPpcKQ9eWZGxJe6eXyCW91eayLVm4KqruvJz3GP0F2T2w46yKZ",
+    "featured": true
+  }<br></td>
+  </tr>
+  <tr>
+    <td>Get data about a movie genre by name</td>
+    <td>/movies/genres/[Genre]</td>
+    <td>GET</td>
+    <td>/movies/genres/:genre</td>
+    <td>None</td>
+    <td>A JSON object holding data about the genre</td>
+  </tr>
+  <tr>
+    <td>Get data about a movie director by name</td>
+    <td>/movies/directors/[Name]</td>
+    <td>GET</td>
+    <td>/movies/directors/:name</td>
+    <td>None</td>
+    <td>A JSON object holding data about the director</td>
+  </tr>
+  <tr>
+    <td>Register new user</td>
+    <td>/users</td>
+    <td>POST</td>
+    <td></td>
+    <td>A JSON object holding data about the user to create. <br> Example: <br> { “name” : “Sabine Mansour",
+“Username”: “sabmans”}</td>
+    <td>A JSON object holding data about the student that was added.
+<br>Example: <br> { “name” : “Sabine Mansour",
+“Username”: “sabmans”}</td>
+  </tr>
+  <tr>
+    <td>Update a user information</td>
+    <td>/users/[Username]</td>
+    <td>PUT</td>
+    <td>/users/:username</td>
+    <td>None</td>
+    <td>A text message indicating the info that was updated.</td>
+  </tr>
+  <tr>
+    <td>Add a movie to Favourites </td>
+    <td>/users/[Username]/favourites</td>
+    <td>POST</td>
+    <td>/users/:username/favourites</td>
+    <td>A JSON object holding data about the movie to add to favourites.<br> Example: <br>{ “title” : “Black Panther"}</td>
+    <td>A JSON object holding data about the movie that was added to favourites. <br> Example:<br> { “title” : “Black Panther"}</td>
+  </tr>
+  <tr>
+    <td>Remove movie from Favourites</td>
+    <td>/users/[Username]/favourites/[Title]</td>
+    <td>DELETE</td>
+    <td>/users/:username/favourites/:title</td>
+    <td>None</td>
+    <td>A text message indicating whether the movies was successfully removed from favourites.</td>
+  </tr>
+  <tr>
+    <td>Unregister an existing user</td>
+    <td>/users/[Username]</td>
+    <td>DELETE</td>
+    <td>/users/:username</td>
+    <td>None</td>
+    <td>A text message indicating whether the user was successfully deleted</td>
+  </tr>
+</table>
 
   </body>
-  
+
 </html>
