@@ -3,6 +3,11 @@ morgan = require('morgan');
 
 const app = express();
 
+const cors = require('cors');
+app.use(cors());
+
+const { check, validationResult } = require('express-validator');
+
 const mongoose = require('mongoose');
 const Models = require('./models.js');
 
@@ -78,14 +83,26 @@ app.get('/movies/directors/:Name', passport.authenticate('jwt', {session: false}
 
 
 //POST request to create a new user
-app.post('/users', (req, res) => {
+app.post('/users',
+[
+check('Username', 'Username is required').isLength({min:5}),
+check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+check('Password', 'Password is required').not().isEmpty(),
+check('Email', 'Email does not appear to be valid').isEmail()
+], (req, res) => {
+  let errors = validationResult(req);
+  if(!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+
+  let hashedPassword = Users.hashPassword(req.body.Password);
   Users.findOne({Username: req.body.Username}).then((user) => {
     if(user) {
       return res.status(400).send(req.body.Username + ' already exists.');
     } else {
       Users.create({
         Username: req.body.Username,
-        Password: req.body.Password,
+        Password: hashedPassword,
         Email: req.body.Email,
         Birthday: req.body.Birthday
       }).then((user) => {res.status(201).json(user)}).catch((error) => {
@@ -100,11 +117,23 @@ app.post('/users', (req, res) => {
 });
 
 //PUT request to update an existing user
-app.put('/users/:Username', passport.authenticate('jwt', {session: false}), (req, res) => {
+app.put('/users/:Username', passport.authenticate('jwt', {session: false}),
+[
+check('Username', 'Username is required').isLength({min:5}),
+check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+check('Password', 'Password is required').not().isEmpty(),
+check('Email', 'Email does not appear to be valid').isEmail()
+], (req, res) => {
+  let errors = validationResult(req);
+  if(!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+
+  let hashedPassword = Users.hashPassword(req.body.Password);
   Users.findOneAndUpdate({ Username: req.params.Username},
 { $set: {
   Username: req.body.Username,
-  Password: req.body.Password,
+  Password: hashedPassword,
   Email: req.body.Email,
   Birthday: req.body.Birthday
   }
