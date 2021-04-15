@@ -38,7 +38,7 @@ app.use((err, req, res, next) => {
 
 
 app.get('/', (req, res) => {
-  res.send('Welcome to MoviesInfo!')
+  res.send('Welcome to FlixInfo!')
 });
 
 //GET request to have a list of ALL movies in the Database
