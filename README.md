@@ -4,7 +4,7 @@
 
 FliXInfo is an API which provides users with access to information about movies, genres and directors. Users are able to register/un-register, update their user profile, and create a list of their favorite movies.
 
-### API Documentation
+## API Documentation
 
 For a full list of endpoints and request methods used, [check out my API documentation](https://flixinfo.herokuapp.com/documentation.html).
 
